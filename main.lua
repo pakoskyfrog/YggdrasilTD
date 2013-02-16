@@ -10,10 +10,21 @@ math.randomseed(os.time())
 ------------------------
 --  Dependencies
 require "sources/apps"
-require "sources/button"
-require "sources/menu"
+require "sources/gui/button"
+require "sources/gui/menu"
 require "sources/actions"
 require "sources/mainmenu"
+-- require "sources/mainmenuBG"
+require "sources/entities/fruit"
+require "sources/entities/bug"
+require "sources/entities/squirrel"
+require "sources/entities/leaf"
+require "sources/entities/flower"
+require "sources/entities/abilities"
+require "sources/entities/foe"
+require "sources/game"
+-- require "sources/gameBG"
+require "sources/gui/hud"
 
 ------------------------
 --  Löve callbacks
