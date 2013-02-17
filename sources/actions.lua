@@ -17,7 +17,7 @@ Actions = {}
 
 function Actions.activateMainMenu()
     --------------------
-    --  assigne primary state to the mainmenu
+    --  assign primary state to the mainmenu
     Apps.state = CMainMenu:create()
     Apps.state:load()
 end
@@ -40,4 +40,15 @@ function Actions:goPage1()
     --  Makes the menu goes back to the first page
     -- self is the button clicked
     self.parent:setCurrentPage(1)
+end
+
+function Actions:launchGame()
+    --------------------
+    --  Launch the main game
+    
+    -- options
+    
+    -- launching
+    Apps.state = CGame.create()
+    Apps.state:load()
 end

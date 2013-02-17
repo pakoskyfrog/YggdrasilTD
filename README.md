@@ -12,6 +12,8 @@ This prototype will surely be ugly but playable, but all features will not be im
 * Apps framework
 * Basic Main menu
 * Basic File architecture
+* The Tree canc contain branches !
+* Basic drawing mechanics
 
 ## 3/ Backstory
 The mighty Yggdrasil is the tree of everything, the bringer of life, the one passage to paradise and ... the source of eternal youth.

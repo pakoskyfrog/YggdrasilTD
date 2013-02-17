@@ -32,7 +32,7 @@ function CMainMenu:create()
     menu1:setAlignment('center')
     
     -- PAGE 1 : main redirection page
-    menu1:addBtn({caption='Proto Test', name='new', hint='Launch the settings for a new game', onClick=Actions.wip}) --, onClick=func , page=2
+    menu1:addBtn({caption='Proto Test', name='new', hint='Launch the settings for a new game', onClick=Actions.launchGame}) --, onClick=func , page=2
     menu1:addBtn({caption='Options', name='options', hint='Music and sounds options', onClick=Actions.wip})
     menu1:addBtn({caption='Achievements', name='achiev', hint='Displays what you have amazingly done !', onClick=Actions.wip})
     menu1:addBtn({caption='Credits', name='credits', hint='Shows the credits list', onClick=Actions.wip})
