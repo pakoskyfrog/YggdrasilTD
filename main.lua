@@ -9,6 +9,7 @@ math.randomseed(os.time())
 
 ------------------------
 --  Dependencies
+require "sources/helpers"
 require "sources/apps"
 require "sources/gui/button"
 require "sources/gui/menu"

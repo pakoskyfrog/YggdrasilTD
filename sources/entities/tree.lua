@@ -19,7 +19,8 @@ CTree.__index = CTree
 ------------------------
 --  Properties
 CTree.type = "CTree"
-
+CTree.growthFactor = 10
+CTree.anchor = {0,0}
 
 ------------------------
 --  Constructor
@@ -30,7 +31,8 @@ function CTree:create(proto)
     proto = proto or {}
     Tree.parent = proto.sender or proto.parent or Apps.state or Apps
     
-    Tree.branches = CBranch:create({sender=Tree, anchor={0,0,Tree}})
+    Tree.branches = CBranch:create({sender=Tree, anchor={0,0,Tree}, ori=(math.random()-0.5)*2*25})
+    -- Tree.branches = CBranch:create({sender=Tree, anchor={0,0,Tree}, ori=15})
     
     Tree.towers = {} -- will contains bourgeons, fruits, bugs, ...
     -- Idea : make it a weak table and insert towers on branches, inside the cascade effect
@@ -97,6 +99,21 @@ end
 function CTree:getAbsoluteOrientation()
     --------------------
     --  Primary orientation
+    return -math.pi/2
+end
+function CTree:getLength()
+    --------------------
+    --  Primary length
+    return 0
+end
+function CTree:getBaseWidth()
+    --------------------
+    --  Primary w-length
+    return 0
+end
+function CTree:getTopWidth()
+    --------------------
+    --  Primary w-length
     return 0
 end
 
