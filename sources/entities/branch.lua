@@ -36,7 +36,7 @@ function CBranch:create(proto)
     Branch.anchoredTo = proto.anchor[3] -- branches or tree
     
     -- Branch.iter = proto.iter or 0 -- 
-    Branch.iter = (Branch.anchoredTo.iter or 0) +1 -- 
+    Branch.iter = (Branch.anchoredTo.iter or -1) +1 -- 
     
     Branch.attachedBy = {} -- branches
     
@@ -151,22 +151,38 @@ end
 function CBranch:getLength()
     --------------------
     --  will calculate the length of the branch according to its age
-    -- TODO non-linear growth func
-    return self.lifeTime * 5
+    -- need math.iv in helpers
+    local t = self.lifeTime -- in sec
+    local it = 1/(self.iter+1)
+    local shx = -12.5
+    local shy = -400*it
+    local A = -1
+    local B = 5000*it
+    return math.iv(t, shx, shy, A, B)
 end
 
 function CBranch:getTopWidth()
     --------------------
     --  will calculate the length of the branch according to its age
-    -- TODO non-linear growth func
-    return math.max(0, (self.lifeTime-30) * 2)
+    local t = self.lifeTime -- in sec
+    local it = 1/(self.iter+1)
+    local shx = -32.5
+    local shy = -80*it
+    local A = -1
+    local B = 5000*it
+    return math.max(0, math.iv(t, shx, shy, A, B))
 end
 
 function CBranch:getBaseWidth()
     --------------------
     --  will calculate the length of the branch according to its age
-    -- TODO non-linear growth func
-    return math.max(0, (self.lifeTime) * 2)
+    local t = self.lifeTime -- in sec
+    local it = 1/(self.iter+1)
+    local shx = -33.333333333333
+    local shy = -150*it
+    local A = -1
+    local B = 5000*it
+    return math.iv(t, shx, shy, A, B)
 end
 
 function CBranch:getAbsolutePosition(disp)
@@ -211,7 +227,13 @@ function CBranch:evolve()
     
     -- print('infos : ', self:getLength(), self:getBaseWidth())
     
-    self.ttne = self.ttne + (15+5*self.iter)
+    -- self.ttne = self.ttne + (15+5*self.iter)
+    
+     --20% increase + 30% random
+    self.ttne = self.ttne * (1.2 + math.random()*0.3) 
+    
+    -- with ttne_0 = 15 sec
+    -- {15, 18., 21.6, 25.92, 31.104, 37.3248} + random
     return false
 end
 
@@ -219,20 +241,63 @@ function CBranch:addBranch()
     --------------------
     --  will add a branch somewhere
     
-    -- 1st model : 100% ramdom positionning
-    local sens = 1
-    if math.random() > 0.5 then
-        sens = -sens
+    -- Limit reached ?
+    if self.tree.iterLimit <= self.iter then
+        return
     end
     
-    -- it's %ages
-    local ax, ay = sens*0.4, math.random()
-    local o = sens*(90-((math.random())*30+25))
+    -- 1st model : 100% ramdom positionning
+    do
+        -- local sens = 1
+        -- if math.random() > 0.5 then
+            -- sens = -1
+        -- end
+        
+        -- -- it's %ages
+        -- local ax, ay = sens*0.4, math.random()
+        -- local o = sens*(90-((math.random())*30+25))
+        
+        -- -- local b = CBranch:create({sender=self.tree, anchor={ax,ay,self}, ori=o})
+        -- -- local b = CBranch:create({sender=self.tree, anchor={ax,0.8,self}, ori=30*sens})
+        -- local b = CBranch:create({sender=self.tree, anchor={ax,ay,self}, ori=o})
+        -- table.insert(self.attachedBy, b)
+    end
     
-    -- local b = CBranch:create({sender=self.tree, anchor={ax,ay,self}, ori=o})
-    -- local b = CBranch:create({sender=self.tree, anchor={ax,0.8,self}, ori=30*sens})
-    local b = CBranch:create({sender=self.tree, anchor={ax,ay,self}, ori=o})
-    table.insert(self.attachedBy, b)
+    -- 2nd model : top 33%, 1 branch left, 1 right, 1 top
+    do
+        -- full ?
+        if self.gotLeft and self.gotMid and self.gotRight then return end
+    
+        local rs = math.random()
+        local sens = -1
+        if rs > 0.333 then sens = 0 end
+        if rs > 0.666 then sens = 1 end
+        
+        -- you can not evolve if you already have your branch
+        if sens == -1 and self.gotLeft  then return end
+        if sens ==  0 and self.gotMid   then return end
+        if sens ==  1 and self.gotRight then return end
+        
+        -- positionning
+        -- it's %ages
+        -- TODO : make the orientation angle to prefenreciably goes up, o=f(op)
+        local ax, ay = sens*0.4, math.random()/3 + 0.66
+        local o = sens*90-sens*((math.random())*30+25)
+        if sens == 0 then o = (math.random()-0.5)*2*30 end
+        
+        -- DEBUG
+        -- if sens == -1 then print('left  ADD',o) end
+        -- if sens ==  0 then print('mid   ADD',o) end
+        -- if sens ==  1 then print('right ADD',o) end
+        
+        -- register the new branch
+        if sens == -1 then self.gotLeft  = true end
+        if sens ==  0 then self.gotMid   = true end
+        if sens ==  1 then self.gotRight = true end
+        
+        local b = CBranch:create({sender=self.tree, anchor={ax,ay,self}, ori=o})
+        table.insert(self.attachedBy, b)
+    end
 end
 
 

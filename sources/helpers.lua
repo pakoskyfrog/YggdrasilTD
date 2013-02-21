@@ -10,3 +10,13 @@ function math.rot2D(v,a)
     return {x*c-y*s, x*s+y*c}
 end
 
+function math.iv(x, shx, shy, A, B)
+    --------------------
+    --  Generalized inverse function
+    -- A : global scale
+    -- B : func scale
+    -- shx : horiz shift
+    -- shy : vert shift
+    
+    return A*(B/((x - shx)) + shy)
+end

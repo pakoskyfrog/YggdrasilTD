@@ -31,10 +31,12 @@ function CTree:create(proto)
     proto = proto or {}
     Tree.parent = proto.sender or proto.parent or Apps.state or Apps
     
+    Tree.iterLimit = math.max(proto.iterLimit or 5, 3)
+    
     Tree.branches = CBranch:create({sender=Tree, anchor={0,0,Tree}, ori=(math.random()-0.5)*2*25})
     -- Tree.branches = CBranch:create({sender=Tree, anchor={0,0,Tree}, ori=15})
     
-    Tree.towers = {} -- will contains bourgeons, fruits, bugs, ...
+    Tree.towers = {} -- will contains bourgeons/buds, fruits, bugs, ...
     -- Idea : make it a weak table and insert towers on branches, inside the cascade effect
     
     print('Yggdrasil created by '..Tree.parent:getType())
