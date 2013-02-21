@@ -35,7 +35,6 @@ function CBranch:create(proto)
     Branch.anchor = {proto.anchor[1], proto.anchor[2]} -- relative position
     Branch.anchoredTo = proto.anchor[3] -- branches or tree
     
-    -- Branch.iter = proto.iter or 0 -- 
     Branch.iter = (Branch.anchoredTo.iter or -1) +1 -- 
     
     Branch.attachedBy = {} -- branches
@@ -120,7 +119,7 @@ function CBranch:update(dt)
     -- self update
     self.lifeTime = self.lifeTime + dt*self.tree.growthFactor
     
-    -- check if i get a new branch or a new tower emplacement (bud/bourgeon) TODO
+    -- check if i get a new branch or a new tower emplacement (bud/bourgeon)
     if self.lifeTime > self.ttne then self:evolve() end
 end
 
@@ -224,7 +223,7 @@ end
 
 function CBranch:getAbsoluteOrientation()
     --------------------
-    --  return the true position, as opposed to the relative position
+    --  return the true Orientation, as opposed to the relative Orientation
     local o = self.anchoredTo:getAbsoluteOrientation()
     o = o + self.orientation
     return o
@@ -233,21 +232,17 @@ end
 function CBranch:evolve()
     --------------------
     --  this will make the branch to grow an other branch or a bud (bourgeon)
+
+    -- Note : for now only branches chan grow
     
-    -- print("can't evolve yet, not implemented / WIP")
-    
-    -- self.tree.growthFactor = 0.5
     self:addBranch()
     
-    -- print('infos : ', self:getLength(), self:getBaseWidth())
-    
-    -- self.ttne = self.ttne + (15+5*self.iter)
-    
-     --20% increase + 30% random
+    --20% increase + 30% random
     self.ttne = self.ttne * (1.2 + math.random()*0.3) 
     
     -- with ttne_0 = 15 sec
     -- {15, 18., 21.6, 25.92, 31.104, 37.3248} + random
+    
     return false
 end
 
@@ -261,7 +256,7 @@ function CBranch:addBranch()
     end
     
     -- 1st model : 100% ramdom positionning
-    do
+    -- do
         -- local sens = 1
         -- if math.random() > 0.5 then
             -- sens = -1
@@ -275,7 +270,7 @@ function CBranch:addBranch()
         -- -- local b = CBranch:create({sender=self.tree, anchor={ax,0.8,self}, ori=30*sens})
         -- local b = CBranch:create({sender=self.tree, anchor={ax,ay,self}, ori=o})
         -- table.insert(self.attachedBy, b)
-    end
+    -- end
     
     -- 2nd model : top 33%, 1 branch left, 1 right, 1 top
     do

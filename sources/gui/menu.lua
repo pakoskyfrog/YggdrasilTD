@@ -8,6 +8,7 @@
 -- Description
 --[[
     Menu Class definition, can produce a main menu or a windowed menu, as respectively state and understate of application.
+    Part of my own built GUI
 ]]
 
 -----------------------------------------------------------

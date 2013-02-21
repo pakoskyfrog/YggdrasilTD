@@ -7,7 +7,8 @@
 ------------------------
 -- Description
 --[[
-    The magnificent Yggdrasil
+    The magnificent Yggdrasil.
+    It owns a branch that owns branches that owns branches... It's the "Cascade effect"
 ]]
 
 -----------------------------------------------------------
@@ -118,7 +119,6 @@ function CTree:getTopWidth()
     --  Primary w-length
     return 0
 end
-
 
 
 print "CTree loaded"

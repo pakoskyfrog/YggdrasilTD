@@ -7,7 +7,9 @@
 ------------------------
 -- Description
 --[[
-    First and main menu of the game
+    First and main menu of the game.
+    State of apps.
+    Not much more than a few buttons in this prototype.
 ]]
 
 -----------------------------------------------------------

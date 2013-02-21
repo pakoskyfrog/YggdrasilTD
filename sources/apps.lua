@@ -1,5 +1,8 @@
 -- Pakoskyfrog 2013
 
+------------------------
+--  This is the Application object. It contains everything, it's the universe.
+
 
 ------------------------
 --  INIT

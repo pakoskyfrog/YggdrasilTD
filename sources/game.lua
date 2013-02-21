@@ -7,7 +7,8 @@
 ------------------------
 -- Description
 --[[
-    Game, state of apps
+    Game, state of apps.
+    Will encapsulate main entities, the tree, foes, environment, ...
 ]]
 
 -----------------------------------------------------------
