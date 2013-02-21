@@ -7,6 +7,10 @@ It's a tower defence game. You have the magnificent Ygdrasil tree under control 
 It will be firstly a prototype that will be an entry to the LoveFest IV (date limit on the 22th feb).
 This prototype will surely be ugly but playable, but all features will not be implemented du to lack of time.
 
+21/02 EDIT : Well... "Playable" on the 22th... I might have been a little optimistic !
+All i hqve is a growing tree, a file architecture and ideas...
+One thing is sure, i will finish this latter ! ^^
+
 ## 2/ Advancement
 * Nothing yet
 * Apps framework
@@ -17,7 +21,8 @@ This prototype will surely be ugly but playable, but all features will not be im
 * Cascade effect
 * The tree is growing ! (badly !)
 * 2nd growing model done. Added non linear growth rates.
-* Problem : the branches cover one eache other : not practical to put things on
+* Problem : the branches cover one each other : not practical to put things on
+* Added time-evolving branch color.
 
 ## 3/ Backstory
 The mighty Yggdrasil is the tree of everything, the bringer of life, the one passage to paradise and ... the source of eternal youth.
@@ -35,6 +40,7 @@ The tree begins small, with only a few spot to put fruits to defend yourself and
 * Multiple language support : english and french in a first time
 * The Dalai Lama is your friend and comes to visit you to sell you powers and to give you some advices.
 * Photosynthetic energy is used to grow the tree, the "towers" and to supply the active towers (ammo regen, ...).
+* NOTE : the actual tower list is separated by categories on the files : shroom.lua / squirrel.lua / leaf.lua / fruit.lua / flower.lua / bug.lua All in the ./sources/entities/ folder.
 
 ## 5/ TODO list
 * Almost everything...
