@@ -97,7 +97,9 @@ function CBranch:draw()
             pts[6] = y - 0.5*bw*math.cos(o)
         end
         
-        love.graphics.setColor(Apps.colors.green)
+        -- love.graphics.setColor(Apps.colors.green)
+        love.graphics.setColor(self:getColor())
+        
         love.graphics.polygon('fill', pts)
         love.graphics.setLineWidth(3)
         love.graphics.setColor(Apps.colors.white)
@@ -147,6 +149,18 @@ end
 function CBranch:getType()
     return self.type
 end
+
+function CBranch:getColor()
+    --------------------
+    --  this will give a color according to the size and teh age of the branch
+    local l = self:getLength()
+    local t = self.lifeTime
+    local r = math.iv(t+l, -80, -255, -1, 20000)*0.5
+    local v = math.iv(t+l, -150, 85, 1, 25000)
+    local b = r*0.33333
+    return {r, v, b}
+end
+
 
 function CBranch:getLength()
     --------------------
