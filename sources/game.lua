@@ -62,18 +62,30 @@ function CGame:draw()
     
     -- the HUD
     
+    --TMP
+    love.graphics.setColor(Apps.colors.white)
+    love.graphics.setFont(Apps.fonts.tiny)
+    love.graphics.print('Mid button to move around', 2, 2)
+    love.graphics.print('Current Growth rate = '.. self.tree.growthFactor ..'x', 2, 22)
+    love.graphics.print('Escape to return to main menu', 2, 42)
 end
 
 function CGame:update(dt)
     -- controls
     self.tree:update(dt)
     
+    -- camera
+    self:updateCamPos()
+    
     -- foes popper
     
 end
 
 function CGame:mousepressed(x, y, btn)
-    
+    if btn == 'm' then
+        self.grab = true
+        self.grabOrig = {love.mouse.getPosition()}
+    end
 end
 
 function CGame:keypressed(key)
@@ -84,7 +96,10 @@ function CGame:keypressed(key)
 end
 
 function CGame:mousereleased(x, y, btn)
-    
+    if btn == 'm' then
+        self.grab = nil
+        self.grabOrig = nil
+    end
 end
 
 function CGame:keyreleased(key)
@@ -120,6 +135,21 @@ function CGame:getShift()
     --------------------
     --  horizontal panning
     return Apps.state.camera.shift*Apps.state.camera.zoom + Apps.w*0.5
+end
+
+function CGame:updateCamPos()
+    --------------------
+    --  This will move the camera if the mouse / user ...
+    if self.grab then
+        local ox, oy = unpack(self.grabOrig)
+        local x,  y  = love.mouse.getPosition()
+        local dx, dy = x-ox, y-oy
+        
+        self.camera.azimuth = self.camera.azimuth + dy
+        self.camera.shift   = self.camera.shift   + dx
+        
+        self.grabOrig = {love.mouse.getPosition()}
+    end
 end
 
 

@@ -39,6 +39,7 @@ function CTree:create(proto)
     
     Tree.towers = {} -- will contains bourgeons/buds, fruits, bugs, ...
     -- Idea : make it a weak table and insert towers on branches, inside the cascade effect
+    --      : cascade effect may make it useless...
     
     print('Yggdrasil created by '..Tree.parent:getType())
     return Tree
@@ -94,6 +95,11 @@ function CTree:getType()
     return self.type
 end
 
+function CTree:getMidSegment()
+    ------------------------
+    --  Primary mid segment
+    return -20,Apps.state:getGroundLevel(), 20,Apps.state:getGroundLevel()
+end
 function CTree:getAbsolutePosition()
     --------------------
     --  Primary position

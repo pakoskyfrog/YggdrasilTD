@@ -57,17 +57,20 @@ function CBranch:load()
 end
 
 function CBranch:draw()
-    -- cascade effect
+    -- -- cascade effect
     for index, b in ipairs(self.attachedBy) do
         b:draw()
     end
     
     -- self draw
     do
-        local x,y = self:getAbsolutePosition()
-        -- print(self.iter,x,y)
-        x = x + Apps.state:getShift()
-        y = Apps.state:getGroundLevel() - y
+        local x1,y1, x2,y2 = self:getMidSegment()
+        
+        -- local x,y = self:getAbsolutePosition()
+        -- -- print(self.iter,x,y)
+        -- x = x + Apps.state:getShift()
+        -- y = Apps.state:getGroundLevel() - y
+        
         -- TODO add wind effects
         
         local l = self:getLength()
@@ -83,20 +86,58 @@ function CBranch:draw()
         local pts = {}
         -- top
         do
-            pts[1] = x+l*math.cos(o) - 0.5*tw*math.sin(o)
-            pts[2] = y+l*math.sin(o) + 0.5*tw*math.cos(o)
-            pts[3] = x+l*math.cos(o) + 0.5*tw*math.sin(o)
-            pts[4] = y+l*math.sin(o) - 0.5*tw*math.cos(o)
+            pts[1] = x2 - 0.5*tw*math.sin(o)
+            pts[2] = y2 + 0.5*tw*math.cos(o)
+            pts[3] = x2 + 0.5*tw*math.sin(o)
+            pts[4] = y2 - 0.5*tw*math.cos(o)
         end
         -- base
         do
-            pts[7] = x - 0.5*bw*math.sin(o)
-            pts[8] = y + 0.5*bw*math.cos(o)
-            pts[5] = x + 0.5*bw*math.sin(o)
-            pts[6] = y - 0.5*bw*math.cos(o)
+            pts[7] = x1 - 0.5*bw*math.sin(o)
+            pts[8] = y1 + 0.5*bw*math.cos(o)
+            pts[5] = x1 + 0.5*bw*math.sin(o)
+            pts[6] = y1 - 0.5*bw*math.cos(o)
         end
         
         -- love.graphics.setColor(Apps.colors.green)
+        -- love.graphics.setColor(self:getColor())
+        
+        -- love.graphics.polygon('fill', pts)
+        -- love.graphics.setLineWidth(3)
+        -- love.graphics.setColor(Apps.colors.white)
+        -- -- love.graphics.polygon('line', pts)
+        -- pts[9]=pts[1]
+        -- pts[10]=pts[2]
+        -- love.graphics.line(pts)
+        
+        
+        -- local px1,py1, px2,py2 = self.anchoredTo:getMidSegment()
+        local m  = math.affineFactory(self.anchoredTo:getMidSegment())
+        local c1 = math.affineFactory(pts[1],pts[2], pts[7],pts[8])
+        local c2 = math.affineFactory(pts[3],pts[4], pts[5],pts[6])
+        
+        local pix1, piy1 = math.intersectAffines(c1, m)
+        local pix2, piy2 = math.intersectAffines(c2, m)
+        pts[7] = pix1
+        pts[8] = piy1
+        pts[5] = pix2
+        pts[6] = piy2
+        
+        if #pts%2~=0 then
+            print(m)
+            print(c1)
+            print(c2)
+            print('pts%2!', pix1, piy1, pix2, piy2)
+        end
+        
+        -- love.graphics.setColor(0,0,127)
+        -- love.graphics.setLineWidth(1)
+        -- love.graphics.line(pts)
+        -- love.graphics.setColor(255,0,0)
+        -- love.graphics.setPointSize(3)
+        -- love.graphics.point(pix1, piy1)
+        -- love.graphics.point(pix2, piy2)
+        
         love.graphics.setColor(self:getColor())
         
         love.graphics.polygon('fill', pts)
@@ -159,7 +200,6 @@ function CBranch:getColor()
     local b = r*0.33333
     return {r, v, b}
 end
-
 
 function CBranch:getLength()
     --------------------
@@ -290,9 +330,14 @@ function CBranch:addBranch()
         -- positionning
         -- it's %ages
         -- TODO : make the orientation angle to prefenreciably goes up, o=f(op)
-        local ax, ay = sens*0.4, math.random()/3 + 0.66
+        local ax, ay = sens*0.4, math.random()/3 + 0.56
         local o = sens*90-sens*((math.random())*30+25)
-        if sens == 0 then o = (math.random()-0.5)*2*30 end
+        if sens == 0 then
+            -- o  = (math.random()-0.5)*2*30
+            o  = math.random(15,35)*(math.random()>0.5 and 1 or -1)
+            -- print('mid o',o)
+            ay = math.random()*0.1 + 0.9
+        end
         
         -- DEBUG
         -- if sens == -1 then print('left  ADD',o) end
@@ -309,6 +354,21 @@ function CBranch:addBranch()
     end
 end
 
+function CBranch:getMidSegment()
+    --------------------
+    --  will give the coordinates of the mid segment
+
+    local x,y = self:getAbsolutePosition()
+    x = x + Apps.state:getShift()
+    y = Apps.state:getGroundLevel() - y
+    
+    local l = self:getLength()
+    local o = self:getAbsoluteOrientation()
+    
+    local x1,y1, x2,y2 = x,y, x+l*math.cos(o), y+l*math.sin(o)
+    
+    return x1,y1, x2,y2
+end
 
 
 print "CBranch loaded"
