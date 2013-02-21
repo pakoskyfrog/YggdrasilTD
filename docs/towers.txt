@@ -1,0 +1,126 @@
+This is a compilations of the ideas for the towers :
+(it is mainly a copy/paste from entities files)
+
+------------------------
+--  Flowers
+--[[
+
+    Flowers smeel nice and are beautiful, i could stay there whatching them all day long.
+    
+    Ideas :
+    * Mighty Lotus : This one is as magnificent as poisoneous...
+                   : This flower delivers a cloud of poison that goes slowly to the ground. Affected by wind.
+    * Eldeweiss : This is the one true winter jewel
+                : Its presence slows the foes (because they're surprised to find it).
+    * SunFlowers : Let them sunbath...
+                 : can emmit a laser !
+                 : they charge the laser with sun power, they need photosynthesis power to grow only.
+    * Daffodils : 
+    * Aconite :
+    * Digitalis : 
+    * 
+    * 
+]]
+
+------------------------
+--  Bugs
+--[[
+
+    Bugs... Not much to worry about, except if they are numerous !
+    
+    Ideas :
+    * Fireflies : The more, the shiner !
+                : They can generate light in a radius by night
+    * Spider : She is the real first web surfer !
+             : 
+    * Praying Mantis
+    * Stick insect :
+    * 
+    * 
+]]
+
+------------------------
+--  Fruits
+--[[
+
+    Fruits are sweet, bitter, juicy, dry, big, small, long, spherical, green, red ....
+    
+    Ideas :
+    * Wormapple : A worm that made this apple his home ! It will defend it harshly...
+                  -> the worn can spit appleseeds to the foes
+    * Boomnanarang : An australian banana than can go back and forth !
+                   -> the banana moves like a boomrang hitting the foes
+    * Pumpkin'O'lantern : This carved pumpkin has surely an inner bright !
+                        : This fruit genrerate a light radius
+                        : This fruit can be dlb-clicked to fall and explode at contact.
+    * Chestnut : Their motto : Aim of the chest !
+               : when the inside nut explodes, it projects the spiked shell on both sides, half to the left, half to the right.
+    * Japaleno : Water ! Waaaaater !!!!!
+               : when adult, they make acid drops that falls (hopefully) onto foes.
+    * Spynapple : Whatch out for the ninja pinapple !
+                : this fruit can launch its scales like shurikens
+    * Walter Melon : A real gentleman, just don't piss him off !
+                   : Can drop an avanlanche/shower of seeds
+    * Hazwellnuts : They might have a strange accent, they're still delicious !
+                  : Main food of the Squirrels
+    * Pomegranate : How the horror... sharpnels everywhere...
+                  : can be launch in a parabolic way, explodes in many fragments at contact
+    * 
+    * 
+]]
+
+------------------------
+--  Leaves
+--[[
+
+    Leaves are great and green ! 
+    And produce energy by photosynthesis...
+    
+    Globally leaf-attacks are less powerful than any other.
+    
+    Ideas :
+    * Oak Standard Leaf TM : Besides its capitalism side, this leaf does its job (but not more).
+                           : this leaf produces photosynthesis
+    * Clover : Like he said... "Take Clover !!!" (Not even funny, bro...)
+             : This clover can send its three leaves like a propeller
+             : this leaf produces photosynthesis according to the number of remaining leaves
+    * Four leaf clover : The dumb ones are supposed to be the luckiest, and this one is pretty lucky !
+                       : Increased critical rates around him
+                       : this leaf produces photosynthesis, with an occasional temp boost
+    * Fern : Between dimension one and two, whatever that means.
+           : Fractal spores : they can launch a spore which will subdivide by two on each impact
+           : produces photosynthesis
+    * Spine pine : Ultimate leaf badasses, they can survive winter !
+           : produces photosynthesis
+    * 
+    * 
+]]
+
+------------------------
+--  Squirrels
+--[[
+
+    Squirrels are little friendly animals.
+    They can by nature move more freely.
+    
+    Ideas :
+    * Cleaning Squirrel : This one launches empty nutshells !
+                        : must have some... (TODO add nuts !)
+    * Playful Squirrel : This little fellow is full of energy !
+                       : It can trigger free sets off on passing by "towers"
+    * 
+    * 
+]]
+
+------------------------
+--  Mushrooms
+--[[
+
+    Mushrooms come as parasites or in symbiosis on trees.
+    
+    Ideas :
+    * Lunar amanita : Red by day, gray by night. DO NOT EAT !
+                    : This shroom produce photosynthesis-power by night with moonlight only.
+    * 
+    * 
+]]

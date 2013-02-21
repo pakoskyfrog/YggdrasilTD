@@ -55,8 +55,6 @@ function math.affineFactory(x1,y1, x2,y2)
         end
     end
     
-    
-    
     return f
 end
 

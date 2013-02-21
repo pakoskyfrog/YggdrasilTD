@@ -35,9 +35,9 @@ function CBranch:create(proto)
     Branch.anchor = {proto.anchor[1], proto.anchor[2]} -- relative position
     Branch.anchoredTo = proto.anchor[3] -- branches or tree
     
-    Branch.iter = (Branch.anchoredTo.iter or -1) +1 -- 
+    Branch.iter = (Branch.anchoredTo.iter or -1) +1 -- iter is the "elevation" on the arborescence
     
-    Branch.attachedBy = {} -- branches
+    Branch.attachedBy = {} -- children-branches
     
     Branch.lifeTime = 0
     Branch.ttne = 15 -- Time To Next Evolution (sec)
@@ -66,22 +66,12 @@ function CBranch:draw()
     do
         local x1,y1, x2,y2 = self:getMidSegment()
         
-        -- local x,y = self:getAbsolutePosition()
-        -- -- print(self.iter,x,y)
-        -- x = x + Apps.state:getShift()
-        -- y = Apps.state:getGroundLevel() - y
-        
         -- TODO add wind effects
         
         local l = self:getLength()
         local tw = self:getTopWidth()
         local bw = self:getBaseWidth()
-        local o = self:getAbsoluteOrientation()-- - math.pi/2
-        
-        -- central line, should be tmp...
-        -- love.graphics.setColor(Apps.colors.white)
-        -- love.graphics.setLineWidth(3)
-        -- love.graphics.line(x,y, x+l*math.cos(o), y+l*math.sin(o))
+        local o = self:getAbsoluteOrientation()
         
         local pts = {}
         -- top
@@ -99,19 +89,6 @@ function CBranch:draw()
             pts[6] = y1 - 0.5*bw*math.cos(o)
         end
         
-        -- love.graphics.setColor(Apps.colors.green)
-        -- love.graphics.setColor(self:getColor())
-        
-        -- love.graphics.polygon('fill', pts)
-        -- love.graphics.setLineWidth(3)
-        -- love.graphics.setColor(Apps.colors.white)
-        -- -- love.graphics.polygon('line', pts)
-        -- pts[9]=pts[1]
-        -- pts[10]=pts[2]
-        -- love.graphics.line(pts)
-        
-        
-        -- local px1,py1, px2,py2 = self.anchoredTo:getMidSegment()
         local m  = math.affineFactory(self.anchoredTo:getMidSegment())
         local c1 = math.affineFactory(pts[1],pts[2], pts[7],pts[8])
         local c2 = math.affineFactory(pts[3],pts[4], pts[5],pts[6])
@@ -123,27 +100,12 @@ function CBranch:draw()
         pts[5] = pix2
         pts[6] = piy2
         
-        if #pts%2~=0 then
-            print(m)
-            print(c1)
-            print(c2)
-            print('pts%2!', pix1, piy1, pix2, piy2)
-        end
-        
-        -- love.graphics.setColor(0,0,127)
-        -- love.graphics.setLineWidth(1)
-        -- love.graphics.line(pts)
-        -- love.graphics.setColor(255,0,0)
-        -- love.graphics.setPointSize(3)
-        -- love.graphics.point(pix1, piy1)
-        -- love.graphics.point(pix2, piy2)
-        
         love.graphics.setColor(self:getColor())
         
         love.graphics.polygon('fill', pts)
         love.graphics.setLineWidth(3)
         love.graphics.setColor(Apps.colors.white)
-        -- love.graphics.polygon('line', pts)
+        
         pts[9]=pts[1]
         pts[10]=pts[2]
         love.graphics.line(pts)
@@ -295,7 +257,7 @@ function CBranch:addBranch()
         return
     end
     
-    -- 1st model : 100% ramdom positionning
+    -- 1st model : 100% ramdom positionning : UGLY
     -- do
         -- local sens = 1
         -- if math.random() > 0.5 then
