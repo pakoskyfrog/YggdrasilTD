@@ -49,6 +49,6 @@ function Actions:launchGame()
     -- options
     
     -- launching
-    Apps.state = CGame.create()
+    Apps.state = CGame:create()
     Apps.state:load()
 end

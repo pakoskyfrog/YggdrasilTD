@@ -21,6 +21,8 @@ CGame.__index = CGame
 --  Properties
 CGame.type = "CGame"
 CGame.windSpeed = 0
+CGame.windMaxSpeed = 150 -- km/hr
+CGame.temperature = 20 -- Celcius
 
 ------------------------
 --  Constructor
@@ -28,8 +30,11 @@ function CGame:create()
     local Game = {}
     setmetatable(Game, CGame)
     
+    Game.hud = CHud:create(Game)
     Game.camera = CGame.newCamera()
     Game.tree = CTree.create({sender=Game})
+    
+    Game.windSpeed = math.random(-self.windMaxSpeed, self.windMaxSpeed)
     
     return Game
 end
@@ -61,6 +66,7 @@ function CGame:draw()
     -- the foes
     
     -- the HUD
+    self.hud:draw()
     
     --TMP
     love.graphics.setColor(Apps.colors.white)
@@ -68,6 +74,7 @@ function CGame:draw()
     love.graphics.print('Mid button to move around', 2, 2)
     love.graphics.print('Current Growth rate = '.. self.tree.growthFactor ..'x', 2, 22)
     love.graphics.print('Escape to return to main menu', 2, 42)
+    love.graphics.print('Wind Speed = '..self.windSpeed..'kph', 2, 62)
 end
 
 function CGame:update(dt)
@@ -79,6 +86,11 @@ function CGame:update(dt)
     
     -- foes popper
     
+    -- HUD
+    self.hud:update(dt)
+    
+    -- Wind force
+    self.windSpeed = self.windSpeed + math.random(100)*0.01 -0.5
 end
 
 function CGame:mousepressed(x, y, btn)
@@ -86,6 +98,9 @@ function CGame:mousepressed(x, y, btn)
         self.grab = true
         self.grabOrig = {love.mouse.getPosition()}
     end
+    
+    -- HUD
+    self.hud:mousepressed(x, y, btn)
 end
 
 function CGame:keypressed(key)
@@ -100,6 +115,9 @@ function CGame:mousereleased(x, y, btn)
         self.grab = nil
         self.grabOrig = nil
     end
+    
+    -- HUD
+    self.hud:mousereleased(x, y, btn)
 end
 
 function CGame:keyreleased(key)
